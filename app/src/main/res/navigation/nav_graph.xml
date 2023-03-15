@@ -10,4 +10,9 @@
         android:name="com.example.androiddevelopertask.ui.fragments.PostsPageFragment"
         android:label="fragment_posts_page"
         tools:layout="@layout/fragment_posts_page" />
+    <fragment
+        android:id="@+id/postDetailsPageFragment"
+        android:name="com.example.androiddevelopertask.ui.fragments.PostDetailsPageFragment"
+        android:label="fragment_post_details_page"
+        tools:layout="@layout/fragment_post_details_page" />
 </navigation>
