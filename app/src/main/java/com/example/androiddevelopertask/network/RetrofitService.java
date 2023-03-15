@@ -7,7 +7,7 @@ public class RetrofitService {
 
     public static PostServiceApi getService() {
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gorest.co.in/public/v2/posts")
+                .baseUrl("https://gorest.co.in/public/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
