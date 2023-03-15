@@ -8,6 +8,11 @@
 ## Backend
 
 - Room DB
+
+## Others using
+* MVVM
+* Retrofit
+
 ## Screenshots 
 ### Posts page
 <img src="https://github.com/mehedii-hassan/AndroidDeveloperTask-SEOExpate/blob/main/Screenshot/1.png" width="400" height="700" >  
