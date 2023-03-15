@@ -5,12 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androiddevelopertask.R;
+import com.example.androiddevelopertask.callbacks.PostItem;
 import com.example.androiddevelopertask.databinding.RvRowItemDesignBinding;
 import com.example.androiddevelopertask.models.PostResponseModel;
+import com.example.androiddevelopertask.ui.fragments.PostsPageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +21,11 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private List<PostResponseModel> postList;
+    private PostItem postItem;
 
-    public PostAdapter() {
+    public PostAdapter(Fragment fragment) {
         postList = new ArrayList<>();
+        postItem = (PostItem) fragment;
     }
 
     @NonNull
@@ -37,10 +42,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         holder.binding.tvTitle.setText(postList.get(position).getTitle());
         holder.binding.tvDetails.setText(postList.get(position).getBody());
+        PostResponseModel model = postList.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.postDetailsPageFragment);
+                postItem.getPostId(model);
+                // Navigation.findNavController(v).navigate(R.id.postDetailsPageFragment);
             }
         });
     }

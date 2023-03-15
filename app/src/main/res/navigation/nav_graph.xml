@@ -14,5 +14,11 @@
         android:id="@+id/postDetailsPageFragment"
         android:name="com.example.androiddevelopertask.ui.fragments.PostDetailsPageFragment"
         android:label="fragment_post_details_page"
-        tools:layout="@layout/fragment_post_details_page" />
+        tools:layout="@layout/fragment_post_details_page" >
+        <action
+            android:id="@+id/toPostPage"
+            app:destination="@id/postsPageFragment"
+            app:popUpTo="@id/postDetailsPageFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

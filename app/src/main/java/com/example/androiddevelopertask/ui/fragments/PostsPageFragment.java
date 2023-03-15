@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -16,13 +17,14 @@ import android.view.ViewGroup;
 
 import com.example.androiddevelopertask.R;
 import com.example.androiddevelopertask.adapters.PostAdapter;
+import com.example.androiddevelopertask.callbacks.PostItem;
 import com.example.androiddevelopertask.databinding.FragmentPostsPageBinding;
 import com.example.androiddevelopertask.models.PostResponseModel;
 import com.example.androiddevelopertask.viewmodels.PostViewModel;
 
 import java.util.List;
 
-public class PostsPageFragment extends Fragment {
+public class PostsPageFragment extends Fragment implements PostItem {
 
     private PostViewModel postViewModel;
     private FragmentPostsPageBinding binding;
@@ -44,7 +46,7 @@ public class PostsPageFragment extends Fragment {
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postViewModel.loadPostData();
 
-        PostAdapter adapter = new PostAdapter();
+        PostAdapter adapter = new PostAdapter(this);
         binding.rvPostsFragment.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvPostsFragment.setAdapter(adapter);
         postViewModel.getPostResponseLiveDate().observe(requireActivity(), new Observer<List<PostResponseModel>>() {
@@ -56,5 +58,13 @@ public class PostsPageFragment extends Fragment {
                 }
             }
         });
+    }
+
+
+    @Override
+    public void getPostId(PostResponseModel model) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("model",model);
+        Navigation.findNavController(requireView()).navigate(R.id.postDetailsPageFragment,bundle);
     }
 }
