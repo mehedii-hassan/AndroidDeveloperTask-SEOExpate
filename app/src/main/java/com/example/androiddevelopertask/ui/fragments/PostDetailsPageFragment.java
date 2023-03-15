@@ -23,16 +23,24 @@ import com.example.androiddevelopertask.databinding.FragmentPostDetailsPageBindi
 import com.example.androiddevelopertask.models.CommentModel;
 import com.example.androiddevelopertask.models.CommentResponseModel;
 import com.example.androiddevelopertask.models.PostResponseModel;
+import com.example.androiddevelopertask.viewmodels.CommentPostViewModel;
 import com.example.androiddevelopertask.viewmodels.CommentViewModel;
+import com.example.androiddevelopertask.viewmodels.CommentViewModelTwo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostDetailsPageFragment extends Fragment {
 
     private FragmentPostDetailsPageBinding binding;
     private CommentViewModel viewModel;
+    private CommentPostViewModel commentPostViewModel;
+    private CommentViewModelTwo viewModelTwo;
 
     private PostResponseModel model;
+    private Map<String, String> headersMap;
+
 
     public PostDetailsPageFragment() {
         // Required empty public constructor
@@ -44,6 +52,12 @@ public class PostDetailsPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentPostDetailsPageBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CommentViewModel.class);
+        viewModelTwo = new ViewModelProvider(this).get(CommentViewModelTwo.class);
+        commentPostViewModel = new ViewModelProvider(this).get(CommentPostViewModel.class);
+
+
+        headersMap = new HashMap<>();
+        headersMap.put("Authorization", "Bearer " + "5ac58dd5377e11f57eeb87fa8f9cca7fdd4fbeca33703257a243c6a9f0653726");
 
         CommentAdapter adapter = new CommentAdapter();
         binding.rvCommentsDF.setLayoutManager(new LinearLayoutManager(container.getContext()));
@@ -81,8 +95,12 @@ public class PostDetailsPageFragment extends Fragment {
                 if (comment.isEmpty()) {
                     Toast.makeText(v.getContext(), "Please write your comment!", Toast.LENGTH_SHORT).show();
                 } else {
-                    CommentModel model1 = new CommentModel(comment);
-
+                    CommentModel model1 = new CommentModel(model.getId(), comment, "mehedi", "m@gmail.com", model.getBody());
+                    viewModelTwo.addPostComment(model1);
+                    binding.etComment.setText("");
+                    commentPostViewModel.postCommentData(headersMap, model1, model.getId());
+                    Toast.makeText(v.getContext(), "Successfully posted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Successfully inserted in roomDb", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.androiddevelopertask.daos.CommentPostDao;
+import com.example.androiddevelopertask.db.MyDatabase;
+import com.example.androiddevelopertask.models.CommentModel;
 import com.example.androiddevelopertask.models.CommentResponseModel;
 import com.example.androiddevelopertask.network.RetrofitService;
 
@@ -23,6 +26,7 @@ public class CommentViewModel extends ViewModel {
         return commentResponseLiveData;
 
     }
+
 
     public void loadCommentData(int postId) {
 
